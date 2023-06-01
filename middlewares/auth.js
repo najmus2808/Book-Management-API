@@ -11,7 +11,8 @@ exports.requireSignin = (req, res, next) => {
     req.user = decoded;
     next();
   } catch (err) {
-    return res.status(401).json(err);
+    console.log(err);
+    return res.status(401).json("Invalid Token");
   }
 };
 
@@ -24,6 +25,7 @@ exports.isAdmin = async (req, res, next) => {
       next();
     }
   } catch (err) {
+    console.log(err);
     return res.status(401).json(err);
   }
 };
