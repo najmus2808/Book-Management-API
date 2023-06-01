@@ -1,9 +1,9 @@
 const Book = require("../models/book");
 
 exports.createHandler = async (req, res) => {
-  const { title, author, description, publishedYear } = req.body;
-
   try {
+    const { title, author, description, publishedYear } = req.body;
+
     // Validate required fields
     if (!title || !author) {
       return res
@@ -40,9 +40,9 @@ exports.readHandler = async (req, res) => {
 };
 
 exports.readByIdHandler = async (req, res) => {
-  const { id } = req.params;
-
   try {
+    const { id } = req.params;
+
     // Validate book ID
     if (!id) {
       return res.status(400).json({ error: "Book ID is required." });
@@ -63,10 +63,10 @@ exports.readByIdHandler = async (req, res) => {
 };
 
 exports.updateHandler = async (req, res) => {
-  const { id } = req.params || {};
-  const { title, author, description, publishedYear } = req.body || {};
-
   try {
+    const { id } = req.params || {};
+    const { title, author, description, publishedYear } = req.body || {};
+
     // Validate book ID
     if (!id) {
       return res.status(400).json({ error: "Book ID is required." });
@@ -104,9 +104,9 @@ exports.updateHandler = async (req, res) => {
 };
 
 exports.deleteHandler = async (req, res) => {
-  const { id } = req.params;
-
   try {
+    const { id } = req.params;
+
     // Validate book ID
     if (!id) {
       return res.status(400).json({ error: "Book ID is required." });
