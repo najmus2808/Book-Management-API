@@ -8,7 +8,7 @@ exports.createHandler = async (req, res) => {
     if (!title || !author) {
       return res
         .status(400)
-        .json({ error: "Title and author are required fields." });
+        .json({ message: "Title and author are required fields." });
     }
 
     // Create a new book
@@ -24,7 +24,7 @@ exports.createHandler = async (req, res) => {
 
     return res.status(201).json(book);
   } catch (error) {
-    return res.status(500).json({ error: "Failed to create the book." });
+    return res.status(500).json({ message: "Failed to create the book." });
   }
 };
 
@@ -35,7 +35,7 @@ exports.readHandler = async (req, res) => {
 
     return res.status(200).json(books);
   } catch (error) {
-    return res.status(500).json({ error: "Failed to retrieve books." });
+    return res.status(500).json({ message: "Failed to retrieve books." });
   }
 };
 
@@ -43,48 +43,31 @@ exports.readByIdHandler = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Validate book ID
-    if (!id) {
-      return res.status(400).json({ error: "Book ID is required." });
-    }
-
     // Retrieve book by ID
     const book = await Book.findById(id);
 
     // Check if book exists
     if (!book) {
-      return res.status(404).json({ error: "Book not found." });
+      return res.status(404).json({ message: "Book not found." });
     }
 
     return res.status(200).json(book);
   } catch (error) {
-    return res.status(500).json({ error: "Failed to retrieve the book." });
+    return res.status(500).json({ message: "Failed to retrieve the book." });
   }
 };
 
 exports.updateHandler = async (req, res) => {
   try {
-    const { id } = req.params || {};
-    const { title, author, description, publishedYear } = req.body || {};
-
-    // Validate book ID
-    if (!id) {
-      return res.status(400).json({ error: "Book ID is required." });
-    }
-
-    // Validate required fields
-    if (!title && !author) {
-      return res
-        .status(400)
-        .json({ error: "At least one of title or author is required." });
-    }
+    const { id } = req.params;
+    const { title, author, description, publishedYear } = req.body;
 
     // Retrieve book by ID
     let book = await Book.findById(id);
 
     // Check if book exists
     if (!book) {
-      return res.status(404).json({ error: "Book not found." });
+      return res.status(404).json({ message: "Book not found." });
     }
 
     // Update book fields
@@ -99,7 +82,7 @@ exports.updateHandler = async (req, res) => {
     return res.status(200).json(book);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: "Failed to update the book." });
+    return res.status(500).json({ message: "Failed to update the book." });
   }
 };
 
@@ -107,17 +90,12 @@ exports.deleteHandler = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Validate book ID
-    if (!id) {
-      return res.status(400).json({ error: "Book ID is required." });
-    }
-
     // Retrieve book by ID
     const book = await Book.findById(id);
 
     // Check if book exists
     if (!book) {
-      return res.status(404).json({ error: "Book not found." });
+      return res.status(404).json({ message: "Book not found." });
     }
 
     // Delete the book
@@ -125,6 +103,6 @@ exports.deleteHandler = async (req, res) => {
 
     return res.status(200).json({ message: "Book deleted successfully." });
   } catch (error) {
-    return res.status(500).json({ error: "Failed to delete the book." });
+    return res.status(500).json({ message: "Failed to delete the book." });
   }
 };
