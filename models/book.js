@@ -4,18 +4,21 @@ const { Schema } = mongoose;
 const bookSchema = new Schema({
   title: {
     type: String,
-    trim: true,
     required: true,
+    maxlength: 100,
+    trim: true,
   },
   author: {
     type: String,
-    trim: true,
     required: true,
+    maxlength: 100,
+    trim: true,
   },
   description: {
     type: String,
-    trim: true,
     required: false,
+    maxlength: 1000,
+    trim: true,
   },
   publishedYear: {
     type: Number,
